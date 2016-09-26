@@ -16,11 +16,22 @@ public class BaseNPC extends BaseEntity {
     protected boolean disarmed;
     protected boolean rooted;
     protected String name;
+    protected String unitName;
+    protected String label;
+    protected int aggroTarget;
     protected int team;
     protected float attackRange;
     protected int attackTarget;
     protected float mana;
     protected float maxMana;
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
 
     protected Map<Integer, Ability> abilities;
 
@@ -152,39 +163,43 @@ public class BaseNPC extends BaseEntity {
         this.team = team;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append( "BaseNPC [level=" );
-        builder.append( level );
-        builder.append( ", origin=" );
-        builder.append( Arrays.toString( origin ) );
-        builder.append( ", alive=" );
-        builder.append( alive );
-        builder.append( ", blind=" );
-        builder.append( blind );
-        builder.append( ", dominated=" );
-        builder.append( dominated );
-        builder.append( ", deniable=" );
-        builder.append( deniable );
-        builder.append( ", disarmed=" );
-        builder.append( disarmed );
-        builder.append( ", rooted=" );
-        builder.append( rooted );
-        builder.append( ", name=" );
-        builder.append( name );
-        builder.append( ", team=" );
-        builder.append( team );
-        builder.append( ", attackRange=" );
-        builder.append( attackRange );
-        builder.append( ", attackTarget=" );
-        builder.append( attackTarget );
-        builder.append( ", mana=" );
-        builder.append( mana );
-        builder.append( ", abilities=" );
-        builder.append( abilities );
-        builder.append( "]" );
-        return builder.toString();
+    public String getLabel() {
+        return label;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public int getAggroTarget() {
+        return aggroTarget;
+    }
+
+    public void setAggroTarget(int aggroTarget) {
+        this.aggroTarget = aggroTarget;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseNPC{" +
+                "level=" + level +
+                ", origin=" + Arrays.toString(origin) +
+                ", alive=" + alive +
+                ", blind=" + blind +
+                ", dominated=" + dominated +
+                ", deniable=" + deniable +
+                ", disarmed=" + disarmed +
+                ", rooted=" + rooted +
+                ", name='" + name + '\'' +
+                ", unitName='" + unitName + '\'' +
+                ", label='" + label + '\'' +
+                ", aggroTarget=" + aggroTarget +
+                ", team=" + team +
+                ", attackRange=" + attackRange +
+                ", attackTarget=" + attackTarget +
+                ", mana=" + mana +
+                ", maxMana=" + maxMana +
+                ", abilities=" + abilities +
+                '}';
+    }
 }

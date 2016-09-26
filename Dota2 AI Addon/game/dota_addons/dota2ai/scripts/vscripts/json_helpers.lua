@@ -38,7 +38,9 @@ end
 	unit.rooted = eUnit:IsRooted()
 	unit.name = eUnit:GetName()
 	unit.team = eUnit:GetTeamNumber()
-	unit.attackRange = eUnit:GetAttackRange()	
+	unit.attackRange = eUnit:GetAttackRange()
+	unit.label = eUnit:GetUnitLabel()
+	unit.unitName = eUnit:GetUnitName()
 	
 	if eUnit:IsHero() then
 		unit.gold = eUnit:GetGold()
@@ -76,8 +78,14 @@ end
 	else
 		unit.type = "BaseNPC"
 	end
-	
-	
+
+
+	local aggroTarget = eUnit:GetAggroTarget()
+	if aggroTarget then
+		unit.aggroTarget = aggroTarget:entindex()
+	end
+
+
 	local attackTarget = eUnit:GetAttackTarget()
 	if attackTarget then
 		unit.attackTarget = attackTarget:entindex()

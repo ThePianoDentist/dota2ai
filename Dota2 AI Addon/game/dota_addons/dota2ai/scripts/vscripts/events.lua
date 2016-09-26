@@ -58,10 +58,13 @@ end
 
 
 --FIXME 
- --function Dota2AI:Reset()
-  --request = CreateHTTPRequest( "POST", Dota2AI.baseURL .. "/reset") 
-  --request:SetHTTPRequestRawPostBody('application/json', "")
- --end
+function Dota2AI:Reset()
+    local request = CreateHTTPRequest( "POST", Dota2AI.baseURL .. "/reset")
+    request:SetHTTPRequestRawPostBody('application/json', "")
+    request:Send(function(result)
+        -- I don't know
+    end)
+end
 
 --------------------------------------------------------------------------------
 -- GameEvent:OnHeroLevelUp
@@ -115,11 +118,11 @@ end
 	  request:Send( function( result ) 
 		if result["StatusCode"] == 200 then       
 		  self:ParseHeroCommand(heroEntity, result['Body']) 
-		else
-		  Dota2AI.Error = true 
+        else
+            Dota2AI.Error = true
 		  for k,v in pairs( result ) do
 			Warning( string.format( "%s : %s\n", k, v ) )
-		  end   
+		  end
 		  Warning("Request was:")
 		  Warning(self:JSONWorld(heroEntity))
 		end
@@ -127,7 +130,7 @@ end
 	  if self._Error == true then
 		return 0
 	  else
-		return 0.5
+		return 0.1
 	  end 
  end
  

@@ -35,6 +35,15 @@ end
 	end
  end
 
+ function Dota2AI:ParseHeroSelect(eHero, reply)
+	local result = package.loaded['game/dkjson'].decode(reply)
+	local name = eHero:GetName()
+
+	ability:UpgradeAbility(false)
+	eHero:SetAbilityPoints(abilityPoints - 1) --UpgradeAbility doesn't decrease the ability points
+	Say(nil, eHero:GetName() .. " levelled up ability " .. abilityIndex, false)
+ end
+
  -- Main entry function --
  function Dota2AI:ParseHeroCommand(eHero, reply)	
 	local result = package.loaded['game/dkjson'].decode(reply)
@@ -129,14 +138,14 @@ end
  
 function Dota2AI:MoveTo(eHero, result)
 	eHero:MoveToPosition(Vector(result.x, result.y, result.z))
-	Say(nil, eHero:GetName() .. " moving to " .. result.x ..", " .. result.y ..", " .. result.z, false)
+--	Say(nil, eHero:GetName() .. " moving to " .. result.x ..", " .. result.y ..", " .. result.z, false)
 end
 
 function Dota2AI:Attack(eHero, result)
 	--Might want to check attack range
 	--eHero:PerformAttack(EntIndexToHScript(result.target), true, true, false, true) 
 	eHero:MoveToTargetToAttack(EntIndexToHScript(result.target))
-	Say(nil, eHero:GetName() .. " attacking " .. result.target, false)
+--	Say(nil, eHero:GetName() .. " attacking " .. result.target, false)
 end
 
 function Dota2AI:Cast(eHero, result)
@@ -146,16 +155,16 @@ function Dota2AI:Cast(eHero, result)
 	--There is some logic missing here to check for range and make the hero face the right direction
 	
 	if (BitAND(behaviour, DOTA_ABILITY_BEHAVIOR_NO_TARGET)) then
-		Say(nil ,eHero:GetName() .. " casting " .. ability:GetName(), false)
+--		Say(nil ,eHero:GetName() .. " casting " .. ability:GetName(), false)
 		eHero:CastAbilityNoTarget(ability, 0) --TODO 0 needs to be changed
 	elseif(BitAND(behaviour, DOTA_ABILITY_BEHAVIOR_UNIT_TARGET )) then
 		local target = EntIndexToHScript(result.target)
 		if target:IsAlive() then
-			Say(nil ,eHero:GetName() .. " casting " .. ability:GetName() .. " on unit " .. target:GetName(), false)		
+--			Say(nil ,eHero:GetName() .. " casting " .. ability:GetName() .. " on unit " .. target:GetName(), false)
 			eHero:CastAbilityOnTarget(target, ability, 0) --TODO 0 needs to be changed
 		end
 	elseif(BitAND(behaviour, DOTA_ABILITY_BEHAVIOR_POINT )) then
-		Say(nil ,eHero:GetName() .. " casting " .. ability:GetName() .. " on " .. result.x .. ", " .. result.y .. ", " .. result.z, false)
+--		Say(nil ,eHero:GetName() .. " casting " .. ability:GetName() .. " on " .. result.x .. ", " .. result.y .. ", " .. result.z, false)
 		eHero:CastAbilityOnPosition(Vector(result.x, result.y, result.z), ability, 0)--TODO 0 needs to be changed
 	else
 		Warning(eHero:GetName() .. " sent invalid cast command " .. behaviour)

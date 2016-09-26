@@ -1,5 +1,6 @@
 package se.lu.lucs.dota2.service;
 
+import java.util.Iterator;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
@@ -26,8 +27,10 @@ public class Dota2AIService {
     private final Bot bot;
 
     public Dota2AIService() {
+        LOGGER.fine( "FUCKCKCK" );
         final ServiceLoader<Bot> botLoader = ServiceLoader.load( Bot.class );
-        bot = botLoader.iterator().next();
+        final Iterator<Bot> it = botLoader.iterator();
+        bot = it.next();
         LOGGER.fine( "Dota2AIService created" );
     }
 
@@ -85,6 +88,7 @@ public class Dota2AIService {
         }
         catch (final Exception e) {
             System.out.println( world.toString() );
+            e.printStackTrace();
 
             throw e;
         }
