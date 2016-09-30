@@ -16,6 +16,24 @@
       end   
     end
   end )
+
+	request = CreateHTTPRequest( "POST", Dota2AI.baseURL .. "/select2")
+	request:SetHTTPRequestHeaderValue("Accept", "application/json")
+	request:SetHTTPRequestHeaderValue("X-Jersey-Tracing-Threshold", "VERBOSE" )
+	request:Send( function( result )
+
+		if result["StatusCode"] == 200 then
+			local command = package.loaded['game/dkjson'].decode(result['Body'])
+			print("Bot returned: \"" .. command.hero .. "\"")
+			GameRules:GetGameModeEntity():SetCustomGameForceHero( command.hero	)
+			--Dota2AI.selectedHero  = command.hero
+		else
+			Dota2AI.Error = true
+			for k,v in pairs( result ) do
+				Warning( string.format( "%s : %s\n", k, v ) )
+			end
+		end
+	end )
  end
 
 

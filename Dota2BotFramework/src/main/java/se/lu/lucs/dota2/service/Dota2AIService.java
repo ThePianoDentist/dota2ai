@@ -25,12 +25,14 @@ import se.lu.lucs.dota2.framework.game.World;
 public class Dota2AIService {
     private static final Logger LOGGER = Logger.getLogger( Dota2AIService.class.getName() );
     private final Bot bot;
+    private final Bot bot2;
 
     public Dota2AIService() {
         LOGGER.fine( "FUCKCKCK" );
         final ServiceLoader<Bot> botLoader = ServiceLoader.load( Bot.class );
         final Iterator<Bot> it = botLoader.iterator();
         bot = it.next();
+        bot2 = it.next();
         LOGGER.fine( "Dota2AIService created" );
     }
 
@@ -63,6 +65,15 @@ public class Dota2AIService {
     @Produces( MediaType.APPLICATION_JSON )
     public Response select( Select e ) {
         final Select s = bot.select();
+        LOGGER.info( "Select was called. We returned " + s.getHero() );
+        return Response.status( Status.OK ).entity( s ).build();
+    }
+
+    @POST
+    @Path( "/select2" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response select2( Select e ) {
+        final Select s = bot2.select();
         LOGGER.info( "Select was called. We returned " + s.getHero() );
         return Response.status( Status.OK ).entity( s ).build();
     }

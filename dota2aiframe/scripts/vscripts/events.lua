@@ -48,10 +48,10 @@ end
 	local heroindex = event.heroindex;
 	local class = event.hero   
 	local heroEntity = EntIndexToHScript(heroindex)
-	--if heroEntity:IsControllableByAnyPlayer() then
+	if heroEntity:IsControllableByAnyPlayer() then 
 		--heroEntity:SetControllableByPlayer(2, false) -- TODO would revoke control from the local client
-    heroEntity:SetContextThink( "DotaPvP:BotThink", function() return Dota2AI:BotThink(heroEntity) end, 0.25 )
-	--end
+		heroEntity:SetContextThink( "DotaPvP:BotThink", function() return Dota2AI:BotThink(heroEntity) end, 0.25 )
+	end
 	  
 	Say(nil, "Bot (team = " .. heroEntity:GetTeam()..", user=".. userid.." picked " .. heroEntity:GetName(), false)      
  end
