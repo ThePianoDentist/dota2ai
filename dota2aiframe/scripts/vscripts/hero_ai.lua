@@ -9,5 +9,6 @@
 team_decisions =  {five_man_push, defensive_trilane }
 individual_decisions = {farm_safelane}
 spec_decisions = {farm_safelane = 1.0}
-spectre = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions}
-heroes = {spectre}
+spectre = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions,
+    should_change_decison = false}
+heroes = {carry = spectre, should_change_decision = false}

@@ -6,7 +6,8 @@ if Dota2AI == nil then
     _G.Dota2AI = class({})
 end
 
-heros = {"spectre", "lion", "zeus", "bloodseeker", "natures prophet"}
+heros = {"spectre", "lion", "zeus", "bloodseeker", "natures prophet" }
+top_creep_vertex = Vector{cndsndjc}/?
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Required .lua files, which just exist to help organize functions contained in our addon.  Make sure to call these beneath the mode's class creation.
 ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,6 +60,22 @@ function Dota2AI:OnThink()
     print( "test1" )
     for key, hero in pairs(HeroList:GetAllHeroes()) do
       if (hero:GetTeamNumber() == DOTA_TEAM_BADGUYS) then
+          local hero_name = hero:GetName
+          if not heroes.should_change_decision then
+              if hero_name == "npc_dota_hero_spectre" then
+                  local world = Dota2AI:JSONWorld(hero)
+                  if heroes.carry.decision == farm_safelane then
+                    for k, entity in pairs(world.entities) do
+                        if entity.name == "npc_DOTA_CREEP_GOODGUY??????" then
+
+                        else
+                        end
+                  else
+                  end
+              else
+              end
+          else
+          end
           local result =  {command = "MOVE", x = 1000, y = 1000, z = 0 }
           print(result)
           print(key)
@@ -66,6 +83,7 @@ function Dota2AI:OnThink()
           self:ParseHeroCommand(hero, result)
       else
       end
+    end
 
     --local serverIP = "http://192.168.1.189" --use this if somehow the HTTPloc doesnt work
     local serverHTTPLoc = "http://localhost/"

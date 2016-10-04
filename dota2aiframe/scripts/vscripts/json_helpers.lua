@@ -181,7 +181,7 @@ function Dota2AI:JSONWorld(eHero)
 		world.entities[unit:entindex()]=self:JSONunit(unit)
 	end
 	
-	return package.loaded['game/dkjson'].encode(world)
+	return world
 end 
  
  function VectorToArray(v)
