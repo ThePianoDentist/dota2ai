@@ -39,6 +39,15 @@ function TableLength( t )
 	return nCount
 end
 
+function Contains(table, val)
+	for i=1,#table do
+		if table[i] == val then
+			return true
+		end
+	end
+	return false
+end
+
 function Dota2AI:BroadcastMsg( sMsg )
 	-- Display a message about the button action that took place
 	local buttonEventMessage = sMsg

@@ -9,6 +9,9 @@
 team_decisions =  {five_man_push, defensive_trilane }
 individual_decisions = {farm_safelane}
 spec_decisions = {farm_safelane = 1.0}
-spectre = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions,
-    should_change_decison = false}
-heroes = {carry = spectre, should_change_decision = false}
+local hero1 = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions, current_action={command="NOOP"}, state = nil, lastHP=0}
+local hero2 = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions, current_action={command="NOOP"}, state = nil, lastHP=0 }
+local hero3 = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions, current_action={command="NOOP"}, state = nil, lastHP=0 }
+local hero4 = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions, current_action={command="NOOP"}, state = nil, lastHP=0 }
+local hero5 = {name = "spectre", current_decision = farm_safelane, decisions = spec_decisions, current_action={command="NOOP"}, state = nil, lastHP=0}
+heroes = {hero1, hero2, hero3, hero4, hero5}

@@ -45,29 +45,32 @@ end
  end
 
  -- Main entry function --
- function Dota2AI:ParseHeroCommand(eHero, result)
-	local command = result.command
-	print("COMMAND" .. command)
+function Dota2AI:ParseHeroCommand(eHero, result)
+	if result ~= nil then
+		local command = result.command
+		print("COMMAND" .. command)
 
-	if command == "MOVE"  then
+		if command == "MOVE"  then
 		self:MoveTo(eHero, result)
-	elseif command == "ATTACK" then
+		elseif command == "ATTACK" then
 		self:Attack(eHero, result)
-	elseif command == "CAST" then
+		elseif command == "CAST" then
 		self:Cast(eHero, result)
-	elseif command == "BUY" then
+		elseif command == "BUY" then
 		self:Buy(eHero, result)
-	elseif command == "SELL" then
+		elseif command == "SELL" then
 		self:Sell(eHero, result)
-	elseif command == "USE_ITEM" then
+		elseif command == "USE_ITEM" then
 		self:UseItem(eHero, result)
-	elseif command == "NOOP" then
+		elseif command == "NOOP" then
 		self:Noop(eHero, result)
-	else 
+		else
 		self._Error = true
 		Warning(eHero:GetName() .. " sent invalid command " .. reply)
+		end
 	end
- end
+
+end
 
 -- Buying items --
 function Dota2AI:Buy(eHero, result)
@@ -137,15 +140,18 @@ end
 end
  
 function Dota2AI:MoveTo(eHero, result)
-	print(result.x .. result.y .. result.z)
-	print(eHero)
-	eHero:MoveToPosition(Vector(result.x, result.y, result.z))
+	if result.x == nil then eHero:MoveToPosition(result.vec)-- is there a better way to do this? overloading?
+	else
+		eHero:MoveToPosition(Vector(result.x, result.y, result.z))
+	end
+
 --	Say(nil, eHero:GetName() .. " moving to " .. result.x ..", " .. result.y ..", " .. result.z, false)
 end
 
 function Dota2AI:Attack(eHero, result)
 	--Might want to check attack range
 	--eHero:PerformAttack(EntIndexToHScript(result.target), true, true, false, true) 
+	--eHero:MoveToTargetToAttack(result.target)
 	eHero:MoveToTargetToAttack(EntIndexToHScript(result.target))
 --	Say(nil, eHero:GetName() .. " attacking " .. result.target, false)
 end

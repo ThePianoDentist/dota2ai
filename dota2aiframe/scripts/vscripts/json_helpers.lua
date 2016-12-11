@@ -99,6 +99,12 @@ end
 function Dota2AI:JSONWorld(eHero)	
 	local world = {}
 	world.entities = {}
+	world.entities.creeps = {}
+	world.entities.creeps_dire_top = {}
+	world.entities.creeps_radiant_top = {}
+	world.entities.creeps_dire = {}
+	world.entities.creeps_radiant = {}
+    world.entities.buildings = {}
 	
 
 	--TODO there are apparently around 2300 trees on the map. Sending those that are NOT standing might be more efficient
@@ -122,7 +128,26 @@ function Dota2AI:JSONWorld(eHero)
                               true)
 							 
 	for _,unit in pairs(allUnits) do
-		world.entities[unit:entindex()]=self:JSONunit(unit)
+		local name = unit:GetUnitName()
+		if string.match(name, "npc_dota_creep") and not string.match(name, "neutral") then
+			if string.match(name, "badguys") then
+				if VectorToArray(unit:GetOrigin()).x < -5293 or VectorToArray(unit:GetOrigin()).y > 4588 then
+					world.entities.creeps_dire_top[unit:entindex()]=self:JSONunit(unit)
+				else
+					world.entities.creeps_dire[unit:entindex()]=self:JSONunit(unit)
+				end
+			else
+				print(VectorToArray(unit:GetOrigin()).x .. ", " .. VectorToArray(unit:GetOrigin()).y)
+				if VectorToArray(unit:GetOrigin()).x < -5293 or VectorToArray(unit:GetOrigin()).y > 4588 then
+					world.entities.creeps_radiant_top[unit:entindex()]=self:JSONunit(unit)
+				else
+					world.entities.creeps_radiant[unit:entindex()]=self:JSONunit(unit)
+				end
+
+			end
+		else
+			world.entities[unit:entindex()]=self:JSONunit(unit)
+		end
 	end
 	
 	--so FindUnitsInRadius somehow ignores all the buildings
@@ -178,14 +203,14 @@ function Dota2AI:JSONWorld(eHero)
 	
 	
 	for i,unit in ipairs(buildings) do
-		world.entities[unit:entindex()]=self:JSONunit(unit)
+        world.entities.buildings[i]=self:JSONunit(unit)
 	end
 	
 	return world
 end 
  
  function VectorToArray(v)
-	return {v.x, v.y, v.z}
+	return {x = v.x, y = v.y, z = v.z}
  end
  
  
